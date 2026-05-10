@@ -74,7 +74,7 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <div className="bg-grid-pattern responsive-padding" style={{ minHeight: '100vh', padding: '40px' }}>
+    <div className="responsive-padding" style={{ minHeight: '100vh', padding: '40px' }}>
       
       {/* Top Header Section */}
       <div className="glass-card mesh-bg-light fade-up" style={{ 

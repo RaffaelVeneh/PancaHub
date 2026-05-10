@@ -15,6 +15,8 @@ export const metadata: Metadata = {
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 import MobileHeader from "@/components/MobileHeader";
+import ParticleBackground from "@/components/ParticleBackground";
+import { NavigationProvider } from "@/components/NavigationProvider";
 
 export default function RootLayout({
   children,
@@ -33,19 +35,22 @@ export default function RootLayout({
       </head>
       <body>
         <ThemeProvider>
-          <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg-base)' }}>
-            <Sidebar />
-            <MobileHeader />
-            <main className="main-content" style={{ 
-              flex: 1, 
-              marginLeft: '280px', /* Width of sidebar */
-              position: 'relative',
-              zIndex: 1,
-              minHeight: '100vh'
-            }}>
-              {children}
-            </main>
-          </div>
+          <NavigationProvider>
+            <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg-base)', position: 'relative' }}>
+              <ParticleBackground />
+              <Sidebar />
+              <MobileHeader />
+              <main className="main-content" style={{ 
+                flex: 1, 
+                marginLeft: '280px',
+                position: 'relative',
+                zIndex: 2,
+                minHeight: '100vh'
+              }}>
+                {children}
+              </main>
+            </div>
+          </NavigationProvider>
         </ThemeProvider>
       </body>
     </html>
