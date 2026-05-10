@@ -1,26 +1,329 @@
 @import "tailwindcss";
 
+/* =============================================
+   PANCAHUB DESIGN SYSTEM (LIGHT MODE DASHBOARD)
+   ============================================= */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* === Palette Utama === */
+  --gold: #D4AF37;
+  --gold-light: #F3E5AB;
+  --gold-dark: #996515;
+
+  /* Sila 1 - Ketuhanan - Merah Saga */
+  --sila1: #E74C3C;
+  --sila1-light: #FADBD8;
+  --sila1-glow: rgba(231, 76, 60, 0.2);
+
+  /* Sila 2 - Kemanusiaan - Biru Laut */
+  --sila2: #3498DB;
+  --sila2-light: #D6EAF8;
+  --sila2-glow: rgba(52, 152, 219, 0.2);
+
+  /* Sila 3 - Persatuan - Hijau Zamrud */
+  --sila3: #1ABC9C;
+  --sila3-light: #D1F2EB;
+  --sila3-glow: rgba(26, 188, 156, 0.2);
+
+  /* Sila 4 - Kerakyatan - Ungu Kebangsaan */
+  --sila4: #9B59B6;
+  --sila4-light: #EBDEF0;
+  --sila4-glow: rgba(155, 89, 182, 0.2);
+
+  /* Sila 5 - Keadilan - Emas Padi */
+  --sila5: #F39C12;
+  --sila5-light: #FDEBD0;
+  --sila5-glow: rgba(243, 156, 18, 0.2);
+
+  /* === Neutrals Light === */
+  --bg-base: #F8FAFC;     /* Light cool gray for main background */
+  --bg-surface: #FFFFFF;  /* White for cards/sidebar */
+  --bg-elevated: #FFFFFF; /* White for floating elements */
+  --bg-hover: #F1F5F9;
+
+  /* === Text === */
+  --text-primary: #1E293B;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+
+  /* === Border === */
+  --border-subtle: #E2E8F0;
+  --border-normal: #CBD5E1;
+  --border-strong: #94A3B8;
+
+  /* === Shadows (Layered depth) === */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+  --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+
+  /* === Glass === */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-blur: blur(12px);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  /* === Neutrals Dark === */
+  --bg-base: #0B1120;     
+  --bg-surface: #151D2C;  
+  --bg-elevated: #1E293B; 
+  --bg-hover: #1E293B;
+
+  /* Tweak lighter variants for dark mode legibility */
+  --sila1-light: rgba(231, 76, 60, 0.15);
+  --sila2-light: rgba(52, 152, 219, 0.15);
+  --sila3-light: rgba(26, 188, 156, 0.15);
+  --sila4-light: rgba(155, 89, 182, 0.15);
+  --sila5-light: rgba(243, 156, 18, 0.15);
+
+  /* === Text === */
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #64748B;
+
+  /* === Border === */
+  --border-subtle: #334155;
+  --border-normal: #475569;
+  --border-strong: #94A3B8;
+
+  /* === Glass === */
+  --glass-bg: rgba(21, 29, 44, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* =============================================
+   BASE RESET & TYPOGRAPHY
+   ============================================= */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Dotted grid background similar to Stitch canvas */
+.bg-grid-pattern {
+  background-image: radial-gradient(var(--border-normal) 1px, transparent 0);
+  background-size: 24px 24px;
+  background-position: -12px -12px;
+}
+
+/* Mesh Gradient Backgrounds */
+.mesh-bg-1 {
+  background: radial-gradient(at 0% 0%, hsla(353,92%,85%,1) 0px, transparent 50%),
+              radial-gradient(at 100% 0%, hsla(204,92%,85%,1) 0px, transparent 50%),
+              radial-gradient(at 100% 100%, hsla(168,92%,85%,1) 0px, transparent 50%),
+              radial-gradient(at 0% 100%, hsla(283,92%,85%,1) 0px, transparent 50%);
+}
+
+.mesh-bg-light {
+  background: radial-gradient(circle at top left, var(--sila1-light), transparent 40%),
+              radial-gradient(circle at bottom right, var(--sila3-light), transparent 40%),
+              radial-gradient(circle at bottom left, var(--sila2-light), transparent 40%),
+              radial-gradient(circle at top right, var(--sila4-light), transparent 40%);
+  background-size: cover;
+  background-color: var(--bg-base);
+}
+
+/* =============================================
+   TYPOGRAPHY UTILITIES
+   ============================================= */
+
+.font-display {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =============================================
+   GLASSMORPHISM COMPONENTS
+   ============================================= */
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-normal);
+}
+
+/* =============================================
+   SILA CARDS — PER WARNA
+   ============================================= */
+
+.sila-card {
+  position: relative;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+
+.sila-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.sila-card-1:hover { border-color: var(--sila1); }
+.sila-card-2:hover { border-color: var(--sila2); }
+.sila-card-3:hover { border-color: var(--sila3); }
+.sila-card-4:hover { border-color: var(--sila4); }
+.sila-card-5:hover { border-color: var(--sila5); }
+
+/* =============================================
+   BUTTONS
+   ============================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--text-primary);
+  color: var(--bg-surface);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  background: #0F172A;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-normal);
+}
+
+.btn-outline:hover {
+  border-color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.btn-ghost:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+/* =============================================
+   SCROLL ANIMATIONS
+   ============================================= */
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =============================================
+   SCROLLBAR
+   ============================================= */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-normal);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* =============================================
+   BADGE
+   ============================================= */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-sila1 { background: var(--sila1-light); color: var(--sila1); }
+.badge-sila2 { background: var(--sila2-light); color: var(--sila2); }
+.badge-sila3 { background: var(--sila3-light); color: var(--sila3); }
+.badge-sila4 { background: var(--sila4-light); color: var(--sila4); }
+.badge-sila5 { background: var(--sila5-light); color: var(--sila5); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hidden-mobile { display: none !important; }
+  .responsive-grid { grid-template-columns: 1fr !important; }
+  .responsive-padding { padding: 20px !important; }
+  .main-content { margin-left: 0 !important; padding-top: 80px !important; }
+}
+@media (min-width: 769px) {
+  .hidden-desktop { display: none !important; }
 }
