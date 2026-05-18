@@ -1,8 +1,9 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase/server';
 import { Vote, Target, CheckCircle2, Link as LinkIcon, MessageSquare, Users } from 'lucide-react';
 import Link from 'next/link';
 
 export default async function MufakatPage() {
+  const supabase = await createClient();
   const { data: petitions } = await supabase
     .from('petitions')
     .select('*')

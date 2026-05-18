@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { User } from '@supabase/supabase-js';
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
+import { useThemeTransition } from './ThemeProvider';
 import { useNavigation } from './NavigationProvider';
 
 const navLinks = [
@@ -38,7 +39,8 @@ export default function Sidebar({ isMobile = false }: { isMobile?: boolean }) {
   const [user, setUser] = useState<User | null>(null);
   const [mounted, setMounted] = useState(false);
   const supabase = createClient();
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
+  const { switchTheme } = useThemeTransition();
   const { startNavigation } = useNavigation();
 
   // Sync active index when route changes (after nav completes)
@@ -171,7 +173,7 @@ export default function Sidebar({ isMobile = false }: { isMobile?: boolean }) {
       <div style={{ padding: '12px 8px 8px', borderTop: '1px solid var(--border-subtle)', marginRight: '20px', marginTop: '8px' }}>
         {mounted && (
           <button
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            onClick={() => switchTheme(theme === 'dark' ? 'light' : 'dark')}
             style={{
               width: '100%',
               display: 'flex', alignItems: 'center', gap: '10px',

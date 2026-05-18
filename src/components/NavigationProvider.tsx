@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
@@ -12,12 +12,13 @@ interface NavigationContextType {
 
 const NavigationContext = createContext<NavigationContextType>({
   isNavigating: false,
-  startNavigation: () => {},
+  startNavigation: () => { },
 });
 
 export function NavigationProvider({ children }: { children: React.ReactNode }) {
   const [isNavigating, setIsNavigating] = useState(false);
   const pathname = usePathname();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // When the actual URL changes, navigation is done — clear overlay
   useEffect(() => {
@@ -26,9 +27,17 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
 
   const startNavigation = useCallback(() => {
     setIsNavigating(true);
+    // Clear any previous timeout
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
     // Safety: auto-clear after 5s in case something goes wrong
-    const t = setTimeout(() => setIsNavigating(false), 5000);
-    return () => clearTimeout(t);
+    timeoutRef.current = setTimeout(() => setIsNavigating(false), 5000);
+  }, []);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
   }, []);
 
   return (

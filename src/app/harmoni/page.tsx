@@ -1,8 +1,9 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase/server';
 import DynamicMap from '@/components/DynamicMap';
 import { Calendar, MapPin, Search } from 'lucide-react';
 
 export default async function HarmoniPage() {
+  const supabase = await createClient();
   // Fetch data from Supabase
   const { data: places, error } = await supabase
     .from('places_of_worship')

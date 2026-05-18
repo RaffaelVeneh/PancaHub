@@ -1,11 +1,13 @@
 'use client';
 
 import { useTheme } from 'next-themes';
+import { useThemeTransition } from './ThemeProvider';
 import { Moon, Sun } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
+  const { switchTheme } = useThemeTransition();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -18,7 +20,7 @@ export default function ThemeToggle() {
 
   return (
     <button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={() => switchTheme(theme === 'dark' ? 'light' : 'dark')}
       className="btn btn-ghost"
       style={{ padding: '8px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       aria-label="Toggle Dark Mode"

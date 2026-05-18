@@ -126,7 +126,7 @@ export default function Footer() {
           flexWrap: 'wrap', gap: 16,
         }}>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
-            © 2025 PancaHub. Dibuat dengan semangat Pancasila.
+            © {new Date().getFullYear()} PancaHub. Dibuat dengan semangat Pancasila.
           </p>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: 4 }}>
             Dibuat dengan <Heart size={12} color="var(--sila1)" fill="var(--sila1)" /> untuk Indonesia

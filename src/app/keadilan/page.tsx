@@ -1,9 +1,10 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase/server';
 import BansosChart from '@/components/BansosChart';
 import { ShoppingBag, TrendingUp, ShieldCheck, Banknote } from 'lucide-react';
 import Image from 'next/image';
 
 export default async function KeadilanPage() {
+  const supabase = await createClient();
   // Fetch UMKM data
   const { data: umkm, error: umkmError } = await supabase
     .from('umkm_products')

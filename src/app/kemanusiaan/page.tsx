@@ -1,8 +1,9 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase/server';
 import { Heart, Users, Flag, AlertTriangle, ShieldAlert } from 'lucide-react';
 import Image from 'next/image';
 
 export default async function KemanusiaanPage() {
+  const supabase = await createClient();
   const { data: campaigns } = await supabase
     .from('campaigns')
     .select('*')
