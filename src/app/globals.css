@@ -347,7 +347,7 @@ body {
 /* New snapshot revealed with circular wipe from center */
 ::view-transition-new(root) {
   z-index: 2;
-  animation: theme-circle-reveal 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: theme-circle-reveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @keyframes theme-circle-reveal {
